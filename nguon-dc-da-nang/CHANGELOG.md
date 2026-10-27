@@ -1,0 +1,55 @@
+# 📜 CHANGELOG — Lịch sử phiên bản
+
+Toàn bộ thay đổi đáng chú ý của dự án được ghi lại trong file này.
+Format dựa trên [Keep a Changelog](https://keepachangelog.com/) — phiên bản theo dạng `MAJOR.MINOR.PATCH`.
+
+## [5.2] — 2026-10-27
+
+### Bản hiện tại — "Đổi sang module LM358 2 tầng"
+
+#### Thay đổi (Changed)
+- Thay toàn bộ mạch khuếch đại gợn AC bằng linh kiện rời (LM358 + trở 10k/20k + tụ 1µF/104, gain ×2 cố định, bias 1.65V) bằng **module LM358 2 tầng** — gain chỉnh bằng 2 biến trở xanh ngay trên module, không cần hàn thêm linh kiện
+- Nối dây Bước 7 mới theo module: cụm đầu vào (V–IN–G) lấy tín hiệu từ **Cọc Đỏ (+)**, cụm đầu ra (G–02–V) đưa chân **02** về **PA2**, cụm giữa (G–01) bỏ trống
+- Bước 3 lắp ráp: **tháo hẳn 2 biến trở xanh CV/CC** khỏi board XL4016 và hàn dây ra 2 chiết áp 10 vòng (Volt + Dòng)
+- Firmware nâng cấp lên v5.2 — chỉ đổi version và ghi chú, không đổi logic đo
+
+#### Tài liệu (Docs)
+- BOM (docs/02) gọn hơn: bỏ 1 trở 10kΩ (bias), 1 trở 20kΩ (hồi tiếp), tụ hóa 1µF, tụ gốm 100nF — còn đúng 2× 10kΩ, 1× 1.2kΩ, 1× 20kΩ
+- Cập nhật bảng chân (docs/03), quy trình hàn Bước 3/7/11/13 (docs/04), hiệu chỉnh mục 3 (docs/06), hardware README, firmware README
+- Vẽ lại 2 sơ đồ PNG (so-do-khoi, so-do-chan-stm32) theo module LM358
+
+## [5.1] — 2026-10-23
+
+### Bản hiện tại — "Bản dành cho người hàn"
+
+#### Thêm mới (Added)
+- Sơ đồ khối hệ thống + sơ đồ chân STM32 trực quan (thư mục `images/`)
+- Bộ tài liệu 6 chương: an toàn, BOM, bảng chân, 14 bước lắp ráp, nạp code, hiệu chỉnh
+- Firmware Arduino hoàn chỉnh: Dashboard (V/A/W), oscilloscope mini 3 kênh 5 thước thời gian, 4 nút điều khiển, cờ HOLD
+- GitHub templates: mẫu báo lỗi, mẫu đề xuất tính năng, mẫu pull request
+
+#### Đã biết (Known issues)
+- Chữ trên màn hình không dấu (font 5x7 của Adafruit GFX không hỗ trợ ký tự tiếng Việt)
+- Đo dòng dưới 100mA chưa chính xác do nhiễu ACS712 — hẹn bản v6 dùng trở shunt + op-amp tốt hơn
+
+## [5.0] — 2026-10 (chưa công khai)
+
+- Đổi từ Arduino Uno sang STM32F103C8T6 — ADC 12 bit chính xác hơn, màn vẽ mượt hơn
+- Thêm kênh đo gợn AC qua LM358 (bias 1.65V, gain ×2) — *(từ v5.2 đã đổi sang module LM358 2 tầng)*
+- Thêm oscilloscope mini thay cho chỉ số Vpp dạng text
+
+## [1.x–4.x] — 2026 (giai đoạn thí nghiệm)
+
+- 1.x: Bản đầu tiên dùng Arduino Nano + LCD 16x2, chỉ đo áp
+- 2.x: Thêm ACS712 đo dòng, thêm quạt tản nhiệt
+- 3.x: Chuyển sang TFT SPI màu, thử ST7735 1.8"
+- 4.x: Thử nghiệm STM32, đụng độ nhiều lỗi SPI — đẻ ra v5.0
+
+## Định dạng ghi chép
+
+- **Thêm mới (Added)**: tính năng, tài liệu, file mới
+- **Thay đổi (Changed)**: thay đổi làm ảnh hưởng cách dùng cũ
+- **Sửa lỗi (Fixed)**: sửa lỗi
+- **Đã biết (Known issues)**: hạn chế đang tồn tại
+
+> Khi bạn đóng góp được gộp vào repo, tên bạn sẽ xuất hiện ở phiên bản kế tiếp!
